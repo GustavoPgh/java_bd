@@ -8,7 +8,9 @@ package View;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,13 +47,14 @@ public class inicio_GUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("aprender?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        clienteQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Cliente c");
+        clienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : clienteQuery.getResultList();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabela2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nome2 = new javax.swing.JTextField();
@@ -62,6 +65,18 @@ public class inicio_GUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabela2 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        cod3 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nome3 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        email3 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tel3 = new javax.swing.JTextField();
+        consultar = new javax.swing.JButton();
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,38 +93,6 @@ public class inicio_GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        tabela2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Codigo", "Email", "Telefone"
-            }
-        ));
-        jScrollPane3.setViewportView(tabela2);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 245, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("GERENCIAR", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(222, 184, 135));
         jPanel2.setLayout(null);
@@ -173,6 +156,102 @@ public class inicio_GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("CADASTRAR", jPanel2);
 
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, clienteList, tabela2);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliCod}"));
+        columnBinding.setColumnName("Código");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliNome}"));
+        columnBinding.setColumnName("Nome");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliEmail}"));
+        columnBinding.setColumnName("Email");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliTel}"));
+        columnBinding.setColumnName("Telefone");
+        columnBinding.setColumnClass(java.math.BigInteger.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane3.setViewportView(tabela2);
+
+        jLabel5.setText("Código: ");
+
+        jLabel6.setText("Nome:");
+
+        jLabel7.setText("Email:");
+
+        jLabel8.setText("Telefone:");
+
+        consultar.setText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cod3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(email3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(nome3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(196, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(55, 55, 55)
+                        .addComponent(tel3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(consultar)
+                .addGap(51, 51, 51))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(consultar)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nome3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(email3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(tel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 48, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("GERENCIAR", jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,6 +262,8 @@ public class inicio_GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
         );
+
+        bindingGroup.bind();
 
         setSize(new java.awt.Dimension(519, 355));
         setLocationRelativeTo(null);
@@ -241,6 +322,74 @@ public class inicio_GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nome2ActionPerformed
 
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        
+        //--inicio
+        
+        try{     //Iniciando o possivel tratamento de erros
+            //Declarando a variavel código
+            cod = Integer.valueOf(cod3.getText());
+                  try {// Tratamento de erro para a conexao
+                // Declarando  a variavel de conexão con
+                // e estabelendo a conexão
+                Connection con = null;
+
+                try {
+                    con = (Connection) DriverManager.getConnection(url2, username, password);
+                } catch (SQLException ex) {
+                    Logger.getLogger(inicio_GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                // Declarando uma string com o comando mySQL para consulta
+                String sql = "SELECT cli_nome,cli_email, cli_tel FROM cliente where cli_cod = "+cod3.getText();
+                // Criando variavel que executara o comando da string sql
+                Statement stm = (Statement) con.createStatement();
+                try//Tratamento de erro da consulta
+                { //Criando variavel que exibira os resultados
+                    //Executando o comando da string sql na variavel rs
+                    ResultSet rs = stm.executeQuery(sql);
+
+                    int i=0; // Variavel utilizada para saber se ha dados cadastrados
+
+                    while (rs.next()) {  // Criando variaveis que receberão os valores do banco de dados
+                        String nome = rs.getString("cli_nome");
+                        String email = rs.getString("cli_email");
+                        String telefone = rs.getString("cli_tel");
+
+                        i++;
+
+                        nome3.setText(String.valueOf(nome));
+                        email3.setText(String.valueOf(email));
+                        tel3.setText(String.valueOf(telefone));
+
+                    }
+
+                    if(i==0){ // Verificando se ha dados cadastrados atraves da variavel i
+
+                        JOptionPane.showMessageDialog(null,"Dado não cadastrado","Resultado",-1);
+
+                    }
+
+                } catch (Exception ex) { // Consulta mal sucedida
+                    JOptionPane.showMessageDialog(null,"\nErro ao consultar!","ERRO",0);
+                }
+
+            } catch (SQLException ex) {
+                // Conexão com servidor mal sucedida
+                JOptionPane.showMessageDialog(null,"Erro ao conectar com o servidor","ERRO!",0);
+            }
+
+        }catch(NumberFormatException erro){
+            // Código fora do formato
+            JOptionPane.showMessageDialog(null,"Digite o código corretamante","ERRO",0);
+            cod3.setText("");
+        }
+
+        
+        
+        //--fim
+    }//GEN-LAST:event_consultarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,19 +429,32 @@ public class inicio_GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Fechar;
     private javax.swing.JButton Gravar;
+    private java.util.List<View.Cliente> clienteList;
+    private javax.persistence.Query clienteQuery;
+    private javax.swing.JTextField cod3;
+    private javax.swing.JButton consultar;
     private javax.swing.JTextField email2;
+    private javax.swing.JTextField email3;
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nome2;
+    private javax.swing.JTextField nome3;
     private javax.swing.JTable tabela;
     private javax.swing.JTable tabela2;
     private javax.swing.JTextField tel2;
+    private javax.swing.JTextField tel3;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,7 @@ package javaapplication1;
 public class JavaApplication1 {
 
     public static void main(String[] args) {
-       Controller.Testa_DB.conecta(); 
+       Controller.Testa_DB.conecta();
     }
     
 }
