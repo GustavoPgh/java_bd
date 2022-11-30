@@ -46,8 +46,12 @@ public class inicio_GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabela2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nome2 = new javax.swing.JTextField();
@@ -59,18 +63,50 @@ public class inicio_GUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabela);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        tabela2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Codigo", "Email", "Telefone"
+            }
+        ));
+        jScrollPane3.setViewportView(tabela2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 245, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("GERENCIAR", jPanel1);
@@ -152,41 +188,39 @@ public class inicio_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nome2ActionPerformed
+    private void FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FecharActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_FecharActionPerformed
 
     private void GravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravarActionPerformed
-        
+
         //--inicio
-        
-nom = nome2.getText(); // recebendo o nome
-em= email2.getText(); // recebendo o email
-teste = Long.valueOf(tel2.getText());// recebendo o telefone
-       
-      try { 
-               
+
+        nom = nome2.getText(); // recebendo o nome
+        em= email2.getText(); // recebendo o email
+        teste = Long.valueOf(tel2.getText());// recebendo o telefone
+
+        try {
+
             Connection con = null;
-    try {
-    con = (Connection) DriverManager.getConnection(url2, username, password);
-    } catch (SQLException ex) {
+            try {
+                con = (Connection) DriverManager.getConnection(url2, username, password);
+            } catch (SQLException ex) {
 
-    Logger.getLogger(inicio_GUI.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(inicio_GUI.class.getName()).log(Level.SEVERE, null, ex);
 
-            
-                   }
+            }
 
             // Recebendo os dados a serem inseridos na tabela
             String sql = "INSERT INTO cliente(cli_nome,cli_email,cli_tel)  values('"+nom+"','"+em+"','"+teste+"')";
 
-     
             try { // Tratamento de Erros para inserção
 
                 // Criando varialvel que executara a inserção
                 PreparedStatement inserir = (PreparedStatement) con.prepareStatement(sql);
                 inserir.execute(); // Executando a inserção
 
-  JOptionPane.showMessageDialog(null,"\nInserção realizada com sucesso!!!\n","",-1);
+                JOptionPane.showMessageDialog(null,"\nInserção realizada com sucesso!!!\n","",-1);
                 nome2.setText("");
                 email2.setText("");
                 tel2.setText("");
@@ -199,17 +233,13 @@ teste = Long.valueOf(tel2.getText());// recebendo o telefone
             JOptionPane.showMessageDialog(null,"Digite os dados corretamente","ERRO",0);
             tel2.setText("");
         }
-    
 
-
-
-        
         //-->fim
     }//GEN-LAST:event_GravarActionPerformed
 
-    private void FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FecharActionPerformed
-    System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_FecharActionPerformed
+    private void nome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nome2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,8 +287,12 @@ teste = Long.valueOf(tel2.getText());// recebendo o telefone
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nome2;
+    private javax.swing.JTable tabela;
+    private javax.swing.JTable tabela2;
     private javax.swing.JTextField tel2;
     // End of variables declaration//GEN-END:variables
 }
